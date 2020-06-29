@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="warn">
+    <Properties>
+        <Property name="basePath">./</Property>
+    </Properties>
+ 
+    <Appenders>
+        <RollingFile name="fileLogger" fileName="${basePath}/t0-kms.log" filePattern="${basePath}/t0-kms-%i.log">
+            <PatternLayout>
+                <pattern>[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t %T] %c{1} - %msg%n</pattern>
+            </PatternLayout>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="100000 KB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="20" />
+        </RollingFile>
+ 
+        <Console name="console" target="SYSTEM_OUT">
+            <PatternLayout   pattern="[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg || %x%n" />
+        </Console>
+    </Appenders>
+    <Loggers>
+        <Logger name="com.spopoff" level="INFO" additivity="false">
+            <appender-ref ref="fileLogger" />
+        </Logger>
+        <AsyncRoot level="INFO" additivity="false">
+            <appender-ref ref="console" />
+        </AsyncRoot>
+    </Loggers>
+</Configuration>
